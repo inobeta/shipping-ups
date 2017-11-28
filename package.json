@@ -1,0 +1,80 @@
+{
+  "_from": "shipping-ups",
+  "_id": "shipping-ups@0.5.7",
+  "_inBundle": false,
+  "_integrity": "sha1-vj3LoaA2ZCxZ8O+9rvfgjpn28YQ=",
+  "_location": "/shipping-ups",
+  "_phantomChildren": {
+    "first-chunk-stream": "0.1.0",
+    "is-utf8": "0.2.1",
+    "request": "2.81.0",
+    "sax": "1.2.4",
+    "selectn": "0.9.6"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "shipping-ups",
+    "name": "shipping-ups",
+    "escapedName": "shipping-ups",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/shipping-ups/-/shipping-ups-0.5.7.tgz",
+  "_shasum": "be3dcba1a036642c59f0efbdaef7e08e99f6f184",
+  "_spec": "shipping-ups",
+  "_where": "/home/salvo/workspace/WS-Shipping",
+  "author": {
+    "name": "uh-sem-blee, Co"
+  },
+  "bugs": {
+    "url": "https://github.com/uh-sem-blee/node-shipping-ups/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "node.extend": "^1.1.5",
+    "soap": "^0.9.1",
+    "xml2js": "^0.4.15",
+    "xmlbuilder": "^2.6.4"
+  },
+  "deprecated": false,
+  "description": "UPS API bindings for Node.JS",
+  "directories": {},
+  "homepage": "https://github.com/uh-sem-blee/node-shipping-ups#readme",
+  "keywords": [
+    "shipping",
+    "shipping integration",
+    "ups",
+    "ups api",
+    "ups ship",
+    "ups label",
+    "ups tracking",
+    "ups rate",
+    "ups rating",
+    "ups pickup",
+    "address verification",
+    "time in transit",
+    "surepost",
+    "sure post",
+    "ups return service",
+    "tax ids",
+    "transaction references",
+    "ups freight"
+  ],
+  "license": "AGPL-3.0",
+  "main": "./lib/index.js",
+  "name": "shipping-ups",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uh-sem-blee/node-shipping-ups.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.5.7"
+}

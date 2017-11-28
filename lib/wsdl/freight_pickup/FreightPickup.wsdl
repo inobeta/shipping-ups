@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- UPS Freight Pickup Service WSDL Release Date Dec 29, 2007 -->
+<!-- Copyright 2007-2008 United Parcel Service of America, Inc. All rights reserved.   -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:error="http://www.ups.com/XMLSchema/XOLTWS/Error/v1.1" xmlns:upss="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0" xmlns:fpu="http://www.ups.com/XMLSchema/XOLTWS/FreightPickup/v1.0" xmlns:tns="http://www.ups.com/WSDL/XOLTWS/FreightPickup/v1.0" targetNamespace="http://www.ups.com/WSDL/XOLTWS/FreightPickup/v1.0">
+	<wsdl:types>
+		<xsd:schema>
+			<!-- This schema defines the UPS Security header used for authorization purposes -->
+			<xsd:import namespace="http://www.ups.com/XMLSchema/XOLTWS/UPSS/v1.0" schemaLocation="UPSSecurity.xsd"/>
+			<!--  This schema defines the error detail data types returned within SOAPFaults to provide more specific information pertaining to the problem. -->
+			<xsd:import namespace="http://www.ups.com/XMLSchema/XOLTWS/Error/v1.1" schemaLocation="Error1.1.xsd"/>
+			<!-- This schema defines the Freight Pickup service data types -->
+			<xsd:import namespace="http://www.ups.com/XMLSchema/XOLTWS/FreightPickup/v1.0" schemaLocation="FreightPickupWebServiceSchema.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="PickupRequestMessage">
+		<wsdl:part name="Body" element="fpu:FreightPickupRequest"/>
+		<wsdl:part name="UPSSecurity" element="upss:UPSSecurity"/>
+	</wsdl:message>
+	<!-- Freight Cancel Pick Up Request-->
+	<wsdl:message name="FreightCancelPickupRequestMessage">
+		<wsdl:part name="Body" element="fpu:FreightCancelPickupRequest"/>
+		<wsdl:part name="UPSSecurity" element="upss:UPSSecurity"/>
+	</wsdl:message>
+	<wsdl:message name="PickupResponseMessage">
+		<wsdl:part name="Body" element="fpu:FreightPickupResponse"/>
+	</wsdl:message>
+	<!-- Freight Cancel Pick Up Response-->
+	<wsdl:message name="FreightCancelPickupResponseMessage">
+		<wsdl:part name="Body" element="fpu:FreightCancelPickupResponse"/>
+	</wsdl:message>
+	<wsdl:message name="PickupErrorMessage">
+		<wsdl:part name="PickupError" element="error:Errors"/>
+	</wsdl:message>
+	<!-- Freight Cancel Pick up Errors -->
+	<wsdl:message name="FreightCancelPickupErrorMessage">
+		<wsdl:part name="FreightCancelPickupError" element="error:Errors"/>
+	</wsdl:message>
+	<wsdl:portType name="FreightPickupPortType">
+		<wsdl:operation name="ProcessFreightPickup">
+			<wsdl:input name="PickupRequest" message="tns:PickupRequestMessage"/>
+			<wsdl:output name="PickupResponse" message="tns:PickupResponseMessage"/>
+			<wsdl:fault name="PickupError" message="tns:PickupErrorMessage"/>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessFreightCancelPickup">
+			<wsdl:input name="FreightCancelPickupRequest" message="tns:FreightCancelPickupRequestMessage"/>
+			<wsdl:output name="FreightCancelPickupResponse" message="tns:FreightCancelPickupResponseMessage"/>
+			<wsdl:fault name="FreightCancelPickupError" message="tns:FreightCancelPickupErrorMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="FreightPickupBinding" type="tns:FreightPickupPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ProcessFreightPickup">
+			<soap:operation soapAction="http://onlinetools.ups.com/webservices/FreightPickupBinding/v1.0" style="document"/>
+			<wsdl:input name="PickupRequest">
+				<soap:body parts="Body" use="literal"/>
+				<soap:header message="tns:PickupRequestMessage" part="UPSSecurity" use="literal">
+					<soap:headerfault message="tns:PickupErrorMessage" part="PickupError" use="literal"/>
+				</soap:header>
+			</wsdl:input>
+			<wsdl:output name="PickupResponse">
+				<soap:body parts="Body" use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="PickupError">
+				<soap:fault name="PickupError" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessFreightCancelPickup">
+			<soap:operation soapAction="http://onlinetools.ups.com/webservices/FreightPickupBinding/v1.0" style="document"/>
+			<wsdl:input name="FreightCancelPickupRequest">
+				<soap:body parts="Body" use="literal"/>
+				<soap:header message="tns:FreightCancelPickupRequestMessage" part="UPSSecurity" use="literal">
+					<soap:headerfault message="tns:FreightCancelPickupErrorMessage" part="FreightCancelPickupError" use="literal"/>
+				</soap:header>
+			</wsdl:input>
+			<wsdl:output name="FreightCancelPickupResponse">
+				<soap:body parts="Body" use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FreightCancelPickupError">
+				<soap:fault name="FreightCancelPickupError" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="FreightPickupService">
+		<wsdl:port name="FreightPickupPort" binding="tns:FreightPickupBinding">
+			<!-- Production URL -->
+			<!-- <soap:address location="https://onlinetools.ups.com/webservices/FreightPickup"/> -->
+			<!-- CIE (Customer Integration Environment) URL -->
+			<soap:address location="https://wwwcie.ups.com/webservices/FreightPickup"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
